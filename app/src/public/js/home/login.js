@@ -21,7 +21,15 @@ function login() {
         },
         body: JSON.stringify(req) // json stringify로 json으로 만ㄷ름
     })
-    .then((res) => res.json()) //다시 반환
-    .then((res) => console.log(res));
-
-};
+    .then((res) => res.json()) //콘솔에 다시 반환
+    .then((res) => {
+        if (res.success) {
+            location.href = "/";
+        } else{
+            alert(res.msg);
+        }
+    })
+    .catch((err)=> {
+        console.error(new Error("로그인 중 에러 발생"));
+    });
+}
