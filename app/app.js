@@ -14,6 +14,8 @@ const home = require("./src/routes/home");
 app.set("views", "./src/views");
 app.set("view engine", "ejs");
 
+app.use(express.static(`${__dirname}/src/public`))
+
 // /에 오는 모든 함수들을 미들웨어 함수 home을 실행
 app.use("/", home);
 
