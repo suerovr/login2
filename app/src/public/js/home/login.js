@@ -21,4 +21,7 @@ function login() {
         },
         body: JSON.stringify(req) // json stringify로 json으로 만ㄷ름
     })
+    .then((res) => res.json()) //다시 반환
+    .then((res) => console.log(res));
+
 };

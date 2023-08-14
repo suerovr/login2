@@ -15,8 +15,9 @@ const home = require("./src/routes/home");
 app.set("views", "./src/views");
 app.set("view engine", "ejs");
 
-//ㅁ디ㅡㄹ웨어 함수 저기로
+//json가져오는 API 미들웨어 함수 저기로
 app.use(express.static(`${__dirname}/src/public`))
+//
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended:true}));
 
