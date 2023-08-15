@@ -23,11 +23,11 @@ function login() {
     })
     .then((res) => res.json()) //콘솔에 다시 반환
     .then((res) => {
-        // if (res.success) {
-        //     location.href = "/";
-        // } else{
-        //     alert(res.msg);
-        // }
+        if (res.success) {
+            location.href = "/";
+        } else{
+            alert(res.msg);
+        }
     })
     .catch((err)=> {
         console.error(new Error("로그인 중 에러 발생"));
