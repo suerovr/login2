@@ -25,9 +25,17 @@ class UserStorage{
         const userInfo = usersKeys.reduce((newUsers, info)=> {
             newUsers[info] = users[info][idx];
             return newUsers;
-    }, {});
+        }, {});
 
     return userInfo;
+    }
+
+    static save(userInfo) {
+        const users = this.#users;
+        users.id.push(userInfo.id);
+        users.name.push(userInfo.name);
+        users.psword.push(userInfo.psword);
+        return { success: true}
     }
 }
 

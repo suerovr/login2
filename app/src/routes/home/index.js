@@ -13,6 +13,7 @@ router.get("/register", ctrl.output.register);
 
 //로그인 데이터 보내는 API
 router.post("/login", ctrl.process.login);
+router.post("/register", ctrl.process.register);
 
 //외부 파일 사용모듈 출력
 module.exports = router;
