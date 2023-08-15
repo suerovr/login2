@@ -1,14 +1,24 @@
 "use strict";
 
+const fs = require("fs").promises; //filesystem
+
 class UserStorage{
-    static #users = {//클래스 안에 변수는 const 필요 없음. static해야 정적변수로 바로접근가능 "#"을쓰면 안보임 암호화
-        id: ["dh","dk"],
-        psword: ["123","dff"],
-        name: ["dhdh","dfdf"]
-    };
+
+    static #getUserInfo(data, id) { //은닉변수는 맨 앞으로
+        const users = (JSON.parse(data)); // 파일 16진수에서 자연어로
+        const idx = users.id.indexOf(id);
+        const usersKeys = Object.keys(users); // =>[id, psword, name]
+        const userInfo = usersKeys.reduce((newUsers, info)=> {
+            newUsers[info] = users[info][idx];
+            return newUsers;
+        }, {});
+
+       return userInfo;
+    }
+
 
     static getUsers(...fields){//다시 받아오기
-        const users =  this.#users;
+        // const users =  this.#users;
         const newUsers = fields.reduce((newUsers, field) => {//내려가며 뭔지 확인
             if (users.hasOwnProperty(field)){
                 newUsers[field] = users[field];
@@ -19,19 +29,18 @@ class UserStorage{
     }
 
     static getUserInfo(id) {
-        const users = this.#users;
-        const idx = users.id.indexOf(id);
-        const usersKeys = Object.keys(users);
-        const userInfo = usersKeys.reduce((newUsers, info)=> {
-            newUsers[info] = users[info][idx];
-            return newUsers;
-        }, {});
-
-    return userInfo;
+        return fs
+    
+        .readFile("./src/databases/users.json")
+        .then((data) => {//성공시
+            return this.#getUserInfo(data, id);
+        })
+        .catch(console.error);//에러시
     }
 
+
     static save(userInfo) {
-        const users = this.#users;
+        // const users = this.#users;
         users.id.push(userInfo.id);
         users.name.push(userInfo.name);
         users.psword.push(userInfo.psword);
